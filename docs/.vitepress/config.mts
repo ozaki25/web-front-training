@@ -50,6 +50,10 @@ export default withPwa(
                   link: "/lessons/day07/",
                 },
                 {
+                  text: "Day 8: PWA と Web API",
+                  link: "/lessons/day08/",
+                },
+                {
                   text: "Day 9: CSS の余白設計",
                   link: "/lessons/day09/",
                 },
