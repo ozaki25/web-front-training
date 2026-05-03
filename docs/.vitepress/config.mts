@@ -57,6 +57,10 @@ export default withPwa(
                   text: "Day 9: CSS の余白設計",
                   link: "/lessons/day09/",
                 },
+                {
+                  text: "Day 10: CSS のレイアウト",
+                  link: "/lessons/day10/",
+                },
               ],
             },
           ],
