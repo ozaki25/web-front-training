@@ -69,6 +69,10 @@ export default withPwa(
                   text: "Day 12: CSS アニメーション",
                   link: "/lessons/day12/",
                 },
+                {
+                  text: "Day 13: JavaScript の実行環境",
+                  link: "/lessons/day13/",
+                },
               ],
             },
           ],

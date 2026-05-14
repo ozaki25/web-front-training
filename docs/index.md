@@ -18,3 +18,4 @@
 - [Day 10: CSS のレイアウト — 横並びの変遷](/lessons/day10/)
 - [Day 11: レスポンシブデザイン — 1 つの HTML をあらゆる画面に届ける](/lessons/day11/)
 - [Day 12: CSS アニメーション — 動きの選択肢と使い分け](/lessons/day12/)
+- [Day 13: JavaScript の実行環境 — 同じ言語が複数の場所で動く](/lessons/day13/)
