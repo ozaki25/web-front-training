@@ -48,6 +48,7 @@ export default withPwa(
               { text: "Day 10: CSS のレイアウト", link: "/lessons/day10/" },
               { text: "Day 11: レスポンシブデザイン", link: "/lessons/day11/" },
               { text: "Day 12: CSS アニメーション", link: "/lessons/day12/" },
+              { text: "Day 13: JavaScript の実行環境", link: "/lessons/day13/" },
             ],
           },
           {
