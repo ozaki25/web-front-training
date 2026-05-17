@@ -1,4 +1,4 @@
-# Day 14: 動的型付けと TypeScript — 型を宣言すると何が変わるか
+# Day 14: 動的型付けと TypeScript
 
 ## 今日のゴール
 
