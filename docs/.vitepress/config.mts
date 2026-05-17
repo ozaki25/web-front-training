@@ -57,6 +57,7 @@ export default withPwa(
             collapsed: true,
             items: [
               { text: "npm", link: "/drafts/001/" },
+              { text: "関数の書き方", link: "/drafts/003/" },
             ],
           },
         ],
