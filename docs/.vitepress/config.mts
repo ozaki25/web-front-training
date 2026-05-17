@@ -49,6 +49,7 @@ export default withPwa(
               { text: "Day 11: レスポンシブデザイン", link: "/lessons/day11/" },
               { text: "Day 12: CSS アニメーション", link: "/lessons/day12/" },
               { text: "Day 13: JavaScript の実行環境", link: "/lessons/day13/" },
+              { text: "Day 14: 動的型付けと TypeScript", link: "/lessons/day14/" },
             ],
           },
           {
@@ -56,7 +57,6 @@ export default withPwa(
             collapsed: true,
             items: [
               { text: "npm", link: "/drafts/001/" },
-              { text: "動的型付けと TypeScript", link: "/drafts/002/" },
             ],
           },
         ],
