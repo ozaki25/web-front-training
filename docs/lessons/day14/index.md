@@ -1,4 +1,4 @@
-# Day 14: 動的型付けと TypeScript
+# Day 14: 動的型付けと TypeScript — 変数に型を宣言するということ
 
 ## 今日のゴール
 
