@@ -73,6 +73,10 @@ export default withPwa(
                   text: "Day 13: JavaScript の実行環境",
                   link: "/lessons/day13/",
                 },
+                {
+                  text: "Day 14: 動的型付けと TypeScript",
+                  link: "/lessons/day14/",
+                },
               ],
             },
           ],
