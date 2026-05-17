@@ -163,6 +163,12 @@ const greeting = "こんにちは";
 
 ::: tip JavaScript のコードはそのまま TypeScript として動く
 TypeScript は JavaScript の上位互換です。JavaScript のコードは、型の宣言がなくてもそのまま TypeScript として有効です。既存の JavaScript プロジェクトに少しずつ型を追加していくことができます。
+
+型のエラーがどう表示されるか試してみたい場合は、[TypeScript Playground](https://www.typescriptlang.org/play/) でブラウザ上から試せます。
+:::
+
+::: info 型と AI
+AI にコードを生成させるとき、型があるプロジェクトでは生成物の品質を担保しやすくなります。型の宣言に合わないコードを AI が生成しても、エディタが静的にチェックしてエラーを教えてくれるからです。
 :::
 
 ## まとめ
