@@ -95,31 +95,68 @@ flowchart LR
 
 SSR はページ全体の HTML が完成するまでブラウザに何も届きません。データ取得に 3 秒かかる部分があれば、ページ全体が 3 秒待ちです。
 
-Streaming は、できた部分から順にブラウザに送ります。
+Streaming は、できた部分から順にブラウザに送ります。下のデモで違いを体験してください。
 
-```mermaid
-sequenceDiagram
-  participant B as ブラウザ
-  participant S as サーバー
-  B->>S: ページをリクエスト
-  S-->>B: ヘッダーとナビ（すぐ完成）
-  Note over B: 先に表示開始
-  S-->>B: メインコンテンツ（データ取得後）
-  S-->>B: サイドバー（別のデータ取得後）
-```
+<div class="c04-demo">
+  <p class="c04-demo-label">Streaming なし vs あり</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <p style="font-weight:bold;color:#1e293b;margin:0 0 8px;font-size:14px">Streaming なし</p>
+      <div class="c04-screen" id="c04-no-stream">
+        <div class="c04-screen-inner">
+          <div class="c04-part c04-profile c04-hidden">田中太郎</div>
+          <div class="c04-part c04-orders c04-hidden">注文履歴 3 件</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="font-weight:bold;color:#1e293b;margin:0 0 8px;font-size:14px">Streaming あり</p>
+      <div class="c04-screen" id="c04-stream">
+        <div class="c04-screen-inner">
+          <div class="c04-part c04-profile c04-hidden">田中太郎</div>
+          <div class="c04-part c04-orders c04-hidden"><span class="c04-loading">読み込み中...</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="c04-btn" id="c04-stream-btn" style="margin-top:12px">再生</button>
+  <p class="c04-demo-note">左: 3 秒後にすべて表示される。右: 0.5 秒でプロフィールが先に表示され、注文は 3 秒後に届く</p>
+</div>
 
 | SSR | SSR + Streaming |
 |-----|----------------|
 | 全部完成してからまとめて送る | できた部分から順に送る |
 | 遅い部分に全体が引っ張られる | 速い部分は先に表示される |
 
-Next.js では `<Suspense>` コンポーネントと `loading.tsx` ファイルが Streaming の仕組みです。`<Suspense>` で囲んだ部分は、データ取得中にフォールバック（ローディング表示）を見せておき、準備ができたら本体に差し替わります。
+Next.js では `<Suspense>` が Streaming の境界を決めます。`<Suspense>` で囲んだ部分は、データ取得中にフォールバック（ローディング表示）を見せておき、準備ができたら本体に差し替わります。
 
 ```tsx
-// <Suspense> で囲んだ部分が Streaming される
-<Suspense fallback={<LoadingSpinner />}>
-  <UserDashboard />  {/* データ取得が終わるまでスピナーが表示される */}
-</Suspense>
+// Streaming なし — 全部揃うまで何も表示されない
+export default async function Page() {
+  const user = await fetchUser();        // 0.5 秒
+  const orders = await fetchOrders();    // 3 秒
+  return (
+    <div>
+      <UserProfile user={user} />
+      <OrderList orders={orders} />
+    </div>
+  );
+}
+```
+
+```tsx
+// Streaming あり — UserProfile は先に表示される
+export default async function Page() {
+  const user = await fetchUser();        // 0.5 秒
+  return (
+    <div>
+      <UserProfile user={user} />
+      <Suspense fallback={<p>注文履歴を読み込み中...</p>}>
+        <OrderList />  {/* この中で 3 秒かかるデータ取得をする */}
+      </Suspense>
+    </div>
+  );
+}
 ```
 
 ### PPR — 静的と動的を 1 ページに混ぜる
@@ -262,3 +299,121 @@ flowchart TB
 | ページの一部分 | Streaming / PPR / Cache Components | コンポーネント単位で描画方式やキャッシュを制御する |
 
 制御の粒度がページからコンポーネントへと細かくなっています。`<Suspense>` で Streaming の境界を決め、`"use cache"` でキャッシュの対象を宣言し、`cacheLife` で期間を、`cacheTag` + `updateTag` で無効化を制御する。これが現在の Next.js のレンダリングとキャッシュの全体像です。
+
+<style>
+.c04-demo {
+  background: #f8fafc;
+  color: #1e293b;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+.c04-demo-label {
+  margin: 0 0 12px;
+  font-weight: bold;
+  color: #1e293b;
+}
+.c04-demo-note {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #64748b;
+}
+.c04-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.c04-btn:hover {
+  background: #2563eb;
+}
+.c04-screen {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  min-height: 120px;
+  overflow: hidden;
+}
+.c04-screen-inner {
+  padding: 12px;
+}
+.c04-part {
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #1e293b;
+  transition: opacity 0.3s;
+}
+.c04-part:last-child {
+  margin-bottom: 0;
+}
+.c04-profile {
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+}
+.c04-orders {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+.c04-hidden {
+  opacity: 0;
+}
+.c04-visible {
+  opacity: 1;
+}
+.c04-loading {
+  color: #94a3b8;
+  font-style: italic;
+}
+</style>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const btn = document.getElementById('c04-stream-btn')
+  if (!btn) return
+
+  btn.addEventListener('click', () => {
+    btn.disabled = true
+
+    const noStreamProfile = document.querySelector('#c04-no-stream .c04-profile')
+    const noStreamOrders = document.querySelector('#c04-no-stream .c04-orders')
+    const streamProfile = document.querySelector('#c04-stream .c04-profile')
+    const streamOrders = document.querySelector('#c04-stream .c04-orders')
+
+    // リセット
+    ;[noStreamProfile, noStreamOrders, streamProfile, streamOrders].forEach(el => {
+      el.classList.remove('c04-visible')
+      el.classList.add('c04-hidden')
+    })
+    streamOrders.innerHTML = '<span class="c04-loading">読み込み中...</span>'
+
+    // Streaming あり: 0.5秒でプロフィール表示
+    setTimeout(() => {
+      streamProfile.classList.remove('c04-hidden')
+      streamProfile.classList.add('c04-visible')
+      streamOrders.classList.remove('c04-hidden')
+      streamOrders.classList.add('c04-visible')
+    }, 500)
+
+    // 3秒後: 両方とも注文履歴が表示
+    setTimeout(() => {
+      // Streaming なし: ここでやっと全部表示
+      noStreamProfile.classList.remove('c04-hidden')
+      noStreamProfile.classList.add('c04-visible')
+      noStreamOrders.classList.remove('c04-hidden')
+      noStreamOrders.classList.add('c04-visible')
+
+      // Streaming あり: 読み込み中が本体に差し替わる
+      streamOrders.innerHTML = '注文履歴 3 件'
+
+      btn.disabled = false
+    }, 3000)
+  })
+})
+</script>
