@@ -203,18 +203,14 @@ PPR（Partial Prerendering）は、ページの「枠」（ヘッダー、ナビ
 </div>
 
 ```mermaid
-flowchart TB
-  subgraph build["ビルド時（デプロイ前）"]
-    Shell["ヘッダー・ナビ・フッターの HTML を生成"]
-  end
-  subgraph request["ユーザーのアクセス時"]
-    direction TB
-    Instant["枠が即座に表示される"]
-    Loading["動的な部分はローディング表示"]
-    Done["サーバーの処理が終わると本体に差し替わる"]
-    Instant --> Loading --> Done
-  end
-  build --> request
+sequenceDiagram
+  participant B as ブラウザ
+  participant C as CDN
+  participant S as サーバー
+  B->>C: ページをリクエスト
+  C-->>B: ビルド済みの枠（即座に届く）
+  S->>S: 動的な部分を SSR
+  S-->>B: 完成した部分で差し替え
 ```
 
 | 部分 | いつ作るか | 届くタイミング |
