@@ -84,6 +84,19 @@ export default withPwa(
               ],
             },
           ],
+          "/drafts/": [
+            {
+              text: "候補",
+              items: [
+                { text: "npm", link: "/drafts/001/" },
+                { text: "Web ページの届け方", link: "/drafts/004/" },
+                { text: "関数とコールバック", link: "/drafts/005/" },
+                { text: "Promise と async/await", link: "/drafts/006/" },
+                { text: "モジュールの歴史", link: "/drafts/007/" },
+                { text: "参照とイミュータビリティ", link: "/drafts/008/" },
+              ],
+            },
+          ],
         },
         outline: {
           label: "目次",
