@@ -28,43 +28,76 @@ export default withPwa(
       },
       themeConfig: {
         nav: [{ text: "ホーム", link: "/" }],
-        sidebar: [
-          {
-            text: "ガイド",
-            items: [{ text: "はじめに", link: "/introduction/" }],
-          },
-          {
-            text: "公開済み",
-            items: [
-              { text: "Day 1: Web の仕組み", link: "/lessons/day01/" },
-              { text: "Day 2: セマンティック HTML", link: "/lessons/day02/" },
-              { text: "Day 3: フォーム", link: "/lessons/day03/" },
-              { text: "Day 4: カスタムフォーム UI", link: "/lessons/day04/" },
-              { text: "Day 5: 専用の HTML 要素で作れる UI", link: "/lessons/day05/" },
-              { text: "Day 6: img タグの書き方", link: "/lessons/day06/" },
-              { text: "Day 7: CSS の適用範囲", link: "/lessons/day07/" },
-              { text: "Day 8: PWA と Web API", link: "/lessons/day08/" },
-              { text: "Day 9: CSS の余白設計", link: "/lessons/day09/" },
-              { text: "Day 10: CSS のレイアウト", link: "/lessons/day10/" },
-              { text: "Day 11: レスポンシブデザイン", link: "/lessons/day11/" },
-              { text: "Day 12: CSS アニメーション", link: "/lessons/day12/" },
-              { text: "Day 13: JavaScript の実行環境", link: "/lessons/day13/" },
-              { text: "Day 14: 動的型付けと TypeScript", link: "/lessons/day14/" },
-            ],
-          },
-          {
-            text: "候補",
-            collapsed: true,
-            items: [
-              { text: "npm", link: "/drafts/001/" },
-              { text: "Web ページの届け方", link: "/drafts/004/" },
-              { text: "関数とコールバック", link: "/drafts/005/" },
-              { text: "Promise と async/await", link: "/drafts/006/" },
-              { text: "モジュールの歴史", link: "/drafts/007/" },
-              { text: "参照とイミュータビリティ", link: "/drafts/008/" },
-            ],
-          },
-        ],
+        sidebar: {
+          "/lessons/": [
+            {
+              text: "Web の基礎",
+              items: [
+                { text: "Day 1: Web の仕組み", link: "/lessons/day01/" },
+                { text: "Day 2: セマンティック HTML", link: "/lessons/day02/" },
+                { text: "Day 3: フォーム", link: "/lessons/day03/" },
+                { text: "Day 4: カスタムフォーム UI", link: "/lessons/day04/" },
+                {
+                  text: "Day 5: HTML だけで作れる UI",
+                  link: "/lessons/day05/",
+                },
+                {
+                  text: "Day 6: img タグの書き方",
+                  link: "/lessons/day06/",
+                },
+                {
+                  text: "Day 7: CSS の適用範囲",
+                  link: "/lessons/day07/",
+                },
+                {
+                  text: "Day 8: PWA と Web API",
+                  link: "/lessons/day08/",
+                },
+                {
+                  text: "Day 9: CSS の余白設計",
+                  link: "/lessons/day09/",
+                },
+                {
+                  text: "Day 10: CSS のレイアウト",
+                  link: "/lessons/day10/",
+                },
+                {
+                  text: "Day 11: レスポンシブデザイン",
+                  link: "/lessons/day11/",
+                },
+                {
+                  text: "Day 12: CSS アニメーション",
+                  link: "/lessons/day12/",
+                },
+                {
+                  text: "Day 13: JavaScript の実行環境",
+                  link: "/lessons/day13/",
+                },
+                {
+                  text: "Day 14: 動的型付けと TypeScript",
+                  link: "/lessons/day14/",
+                },
+                {
+                  text: "Day 15: Web ページの届け方",
+                  link: "/lessons/day15/",
+                },
+              ],
+            },
+          ],
+          "/drafts/": [
+            {
+              text: "候補",
+              items: [
+                { text: "npm", link: "/drafts/001/" },
+                { text: "Web ページの届け方", link: "/drafts/004/" },
+                { text: "関数とコールバック", link: "/drafts/005/" },
+                { text: "Promise と async/await", link: "/drafts/006/" },
+                { text: "モジュールの歴史", link: "/drafts/007/" },
+                { text: "参照とイミュータビリティ", link: "/drafts/008/" },
+              ],
+            },
+          ],
+        },
         outline: {
           label: "目次",
         },

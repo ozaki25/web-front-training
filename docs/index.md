@@ -20,3 +20,4 @@
 - [Day 12: CSS アニメーション — 動きの選択肢と使い分け](/lessons/day12/)
 - [Day 13: JavaScript の実行環境 — 同じ言語が複数の場所で動く](/lessons/day13/)
 - [Day 14: 動的型付けと TypeScript — 変数に型を宣言するということ](/lessons/day14/)
+- [Day 15: Web ページの届け方 — CSR から Cache Components まで](/lessons/day15/)
